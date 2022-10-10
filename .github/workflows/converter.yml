@@ -1,0 +1,36 @@
+name: Convert
+
+ # Controls when the workflow will run
+on: push
+env:
+   ARTIFACT_PATH: yaml
+   ARTIFACT_NAME: my-yaml
+   ARTIFACT_FILENAME: example.yml
+
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+ # This workflow contains a single job called "build"
+ converter:
+  # The type of runner that the job will run on
+  runs-on: ubuntu-latest
+
+  # Steps represent a sequence of tasks that will be executed as part of the job
+  steps:
+   - name: converts json to yaml
+   # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+   - uses: actions/checkout@v3
+
+   - uses: fabasoad/yaml-json-xml-converter-action@main
+     id: json2yaml
+     with:
+       path: 'json/example.json'
+       from: 'json'
+       to: 'yaml'
+
+   - name: Upload converted file
+   - run: echo "${{ steps.json2yaml.outputs.data }}" > ${{ env.ARTIFACT_PATH }}/${{ env.ARTIFACT_FILENAME }}
+   - uses: actions/upload-artifact@v2
+     with:
+       name: ${{ env.ARTIFACT_NAME }}
+       path: ${{ env.ARTIFACT_PATH }}/${{ env.ARTIFACT_FILENAME }}
