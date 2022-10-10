@@ -29,6 +29,7 @@ jobs:
        to: 'yaml'
 
    - name: Upload converted file
+   - run: mkdir -p "${{ env.ARTIFACT_NAME }}"
    - run: echo "${{ steps.json2yaml.outputs.data }}" > ${{ env.ARTIFACT_PATH }}/${{ env.ARTIFACT_FILENAME }}
    - uses: actions/upload-artifact@v2
      with:
