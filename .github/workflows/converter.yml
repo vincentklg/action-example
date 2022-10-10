@@ -16,7 +16,7 @@ jobs:
    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
    - name: Checkout repository
      uses: actions/checkout@v3
-   
+
    - name: Convert json to yaml
      uses: fabasoad/yaml-json-xml-converter-action@main
      id: json2yaml
@@ -26,10 +26,10 @@ jobs:
        to: 'yaml'
 
    - name: Create desired directories
-     run: mkdir -p "${{ env.ARTIFACT_NAME }}"
+     run: mkdir -p "${{ env.ARTIFACT_PATH }}"
    - name: Route converter output into specified file
      run: echo "${{ steps.json2yaml.outputs.data }}" > ${{ env.ARTIFACT_PATH }}/${{ env.ARTIFACT_FILENAME }}
-     
+
    - name: Upload exported directory to the repository
      uses: actions/upload-artifact@v2
      with:
