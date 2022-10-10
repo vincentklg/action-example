@@ -1,19 +1,15 @@
 name: Convert
 
- # Controls when the workflow will run
 on: push
 env:
    ARTIFACT_PATH: yaml
    ARTIFACT_NAME: my-yaml
    ARTIFACT_FILENAME: example.yml
 
-
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
  converter:
   runs-on: ubuntu-latest
   steps:
-   # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
    - name: Checkout repository
      uses: actions/checkout@v3
 
